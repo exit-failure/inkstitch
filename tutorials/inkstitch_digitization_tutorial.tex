@@ -1,0 +1,208 @@
+\documentclass{article}
+
+% begin MULTILINGUAL SUPPORT
+% many thanks to https://tex.stackexchange.com/users/7537/ at https://tex.stackexchange.com/questions/5076/is-it-possible-to-keep-my-translation-together-with-original-text
+
+% enables babels language support
+\usepackage[ngerman, english]{babel}
+
+% import sty file
+\usepackage{multilang}
+
+% set short and long language codes, the second argument must be known by babel
+\setdoclang{en}{english}
+%\setdoclang{de}{ngerman}
+
+% end MULTILINGUAL SUPPORT
+
+% set paper size, orientation and margins
+\usepackage[a4paper, portrait, margin=1.5cm]{geometry}
+
+% empty lines between paragraphs instead of first line indentation
+\usepackage{parskip}
+
+% justify text
+\usepackage{ragged2e}
+\justifying
+
+% draw flow charts
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+
+% clickable links, links with text and \nameref
+\usepackage{hyperref}
+
+% use \url tag
+\usepackage{url}
+
+% use preamble of main file in every sub file
+% best loaded last in the preamble
+\usepackage{subfiles}
+
+% begin FLOW CHART BLOCKS
+\tikzstyle{startstop} = [rectangle, rounded corners,
+minimum width=3cm, minimum height=1cm,
+text centered, text width=3cm,
+draw=black, fill=red!30]
+
+\tikzstyle{io} = [trapezium,
+trapezium stretches=true,
+trapezium left angle=70,
+trapezium right angle=110,
+minimum width=3cm, minimum height=1cm,
+text centered, text width=3cm,
+draw=black, fill=blue!30]
+
+\tikzstyle{process} = [rectangle,
+minimum width=3cm, minimum height=1cm,
+text centered, text width=3cm,
+draw=black, fill=orange!30]
+
+\tikzstyle{decision} = [diamond,
+aspect = 2,
+minimum width=3cm, minimum height=1cm,
+text centered, text width=2.5cm,
+draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+% end FLOW CHART BLOCKS
+
+% begin TITLE INFORMATION
+\title{
+    \lang{en}{
+        Preparing ('Digitizing') Images with Inkscape and Ink/Stitch\\
+        for Machine Embroidery
+    }
+    \lang{de}{
+        Bilder mit Inkscape und Ink/Stitch\\
+        für das Maschinensticken vorbereiten ('Digitalisieren')
+    }
+}
+\author{Harald Kraft}
+\date{
+    \today
+    \bigbreak
+    % add license information to title
+    \lang{en}{
+        This entire document is licensed under the GNU Affero General Public License Version 3.\\
+        \url{https://gnu.org/licenses/agpl.html}
+    }
+    \lang{de}{
+        Dieses Dokument ist in Gänze unter der GNU Affero General Public License Version 3 lizensiert.\\
+        \url{https://gnu.org/licenses/agpl.html}
+    }
+}
+% end TITLE INFORMATION
+
+\begin{document}
+
+    \maketitle
+
+    \tableofcontents
+
+    \pagebreak
+
+    \subfile{sections/1/prereq.tex}
+
+        \subfile{sections/1/inkscape.tex}
+
+        \subfile{sections/1/inkstitch.tex}
+
+        \subfile{sections/1/usage.tex}
+
+        \subfile{sections/1/setup.tex}
+
+        \subfile{sections/1/ressources.tex}
+
+    \pagebreak
+
+    \subfile{sections/2/workflow.tex}
+
+        \subfile{sections/2/overview.tex}
+
+        \pagebreak
+
+        \subfile{sections/2/import.tex}
+
+        \subfile{sections/2/fileTypes.tex}
+
+            \subfile{sections/2/vector.tex}
+
+            \subfile{sections/2/raster.tex}
+
+        \subfile{sections/2/resiize.tex}
+
+        \subfile{sections/2/convert.tex} \label{vectorConversion}
+
+        \subsection{Delete Background}
+        %TODO
+
+            \subsubsection{Delete Background Layer}
+            %TODO
+
+            \subsubsection{Delete "Holes"}
+            %TODO
+
+        \subsection{Break Apart Image}
+        %TODO
+
+        \subsection{Finding and fixing Problems}
+        %TODO
+
+            \subsubsection{Troubleshooter}
+            %TODO
+
+            \subsubsection{Clean up Document}
+            %TODO
+
+            \subsubsection{Small Infill}
+            %TODO
+
+            \subsubsection{Border Crosses Itself}
+            %TODO
+
+            \subsubsection{Rung mIntersects Rail more than Once (Satin Stitch)}
+            %TODO
+
+        \subsection{Simplify Paths}
+        %TODO
+
+        \subsection{Finding and Fixing Problems, Again}
+        %TODO
+
+        \subsection{Creating Outlines}
+        %TODO
+
+        \subsection{Adding Writing / Lettering}
+        %TODO
+
+        \subsection{Checking what the Stitched Image will look like}
+        %TODO
+
+        \subsection{Assigning Stitch Types}
+        %TODO
+
+            \subsubsection{Straight Stitch}
+            %TODO
+
+            \subsubsection{Satin Stitch}
+            %TODO
+
+            \subsubsection{Fill Stitch}
+            %TODO
+
+        \subsection{Reorganizing the Stitch Order}
+        %TODO
+
+            \subsubsection{Grouping same Colour Parts}
+            %TODO
+
+            \subsubsection{Avoiding visible Jump Stitches}
+            %TODO
+
+        \subsection{One last Check}
+        %TODO
+
+        \subsection{Exporting to a File your Embroidery Machine can understand}
+        %TODO
+
+\end{document}
