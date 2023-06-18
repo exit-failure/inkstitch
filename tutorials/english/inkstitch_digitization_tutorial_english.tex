@@ -1,8 +1,24 @@
 \documentclass{article}
+
+% draw flow charts
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
 
+%  set paper size, orientation and margins
 \usepackage[a4paper, portrait, margin=1.5cm]{geometry}
+
+% justify text
+\usepackage{ragged2e}
+\justifying
+
+% empty lines between paragraphs instead of first line indentation
+\usepackage{parskip}
+
+% use \url tag
+\usepackage{url}
+
+% clickable links and \nameref
+\usepackage{hyperref}
 
 % begin flow chart blocks
 \tikzstyle{startstop} = [rectangle, rounded corners, 
@@ -31,9 +47,20 @@ draw=black, fill=green!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
 % end flow chart blocks
 
-\title{Preparing ('Digitizing') Images with Inkscape / Inkstitch for Machine Embroidery}
+%TITLE INFORMATION
+
+\title{
+    Preparing ('Digitizing') Images with Inkscape / Inkstitch for\\
+    Machine Embroidery}
 \author{Harald Kraft}
-\date{\today}
+\date{
+    \today
+    \bigbreak
+    % add license information to title
+    This entire document is licensed under the GNU Affero General Public License Version 3.\\
+    \url{https://gnu.org/licenses/agpl.html}}
+
+%TITLE INFORMATION
 
 \begin{document}
 
@@ -45,97 +72,146 @@ draw=black, fill=green!30]
 
     \section{Prerequisites}
         \subsection{Inkscape}
+            The first piece of required software is Inkscape. It can be found at \url{https://inkscape.org/}. The most recent stable version at the time of writing is 1.2.2.
+            If your operating system is Windows, make sure to try to download and install the 64-bit version first. If the setup gives you an error directly after starting it, try the 32-bit version second.
+            Inkscape is available via the default repositories of almost all Linux distributions. If yours should be the exception, you can use the available Appimage or Snap Store images.
+            For MacOS please make sure to select the correct version for older systems with Intel or newer system with Apple M processors.  
 
-        \subsection{Inkstitch}
-    
-        \pagebreak
+        \subsection{Ink/Stitch}
+
+            Ink/Stitch is a plugin (addition) for Inkscape. It can only run, if you already have a working Inkscape installation. Ink/Stitch can be found here: \url{https://inkstitch.org/}
+            To install the plugin correctly, please follow the Instructions that can be found here: \url{https://inkstitch.org/docs/install/}. Please select your operating system accordingly.
+
+        \subsection{Using Ink/Stitch}
+            
+            To access the additional functionality that Ink/Stitch offers, open Inkscape and click on 'Plugin' $\rightarrow$ 'Inkstitch'.
+            Ink/Stitch will be essential in preparing and exporting our embroidery files. Nevertheless, besides the functionality the plugins offers, we will also require many functions that are already included in Inkscape.
+            Knowing or learning how Inkscape works there will help quite a bit in creating beautiful embroideries.
+            To get to know how Inkscape beyond what this document will teach you, you can find a lot of help on the Inkscape website. Alternatively you can look for introductory videos and tutorials on many platforms like Youtube.
+            \smallbreak
+            The following pages will try to explain the necessary steps to create an embroidery pattern from an image file.
+
+    \pagebreak
+
     \section{Workflow}
         \subsection{Overview}
-        \begin{tikzpicture}[node distance=1.7cm]
-            \node (start) [startstop] {Start Inkscape with Inkstitch already installed.};
-            \node (import) [io, below of=start] {import image};
-            \node (isVector) [decision, below of=import, yshift=-0.5cm] {Is vector image?};
-            \node (resize) [process, below of=isVector, yshift=-0.5cm] {Resize to desired embroidery size};
-            \node (conv) [process, below of=resize] {Convert raster (pixel) image to vector format};
-            \node (backgr) [decision, below of=conv, yshift=-1cm] {Do you want to stitch out the background?};
-            \node (delBackgr) [process, below of=backgr, yshift=-0.7cm] {Delete background};
-            \node (split) [process, below of=delBackgr] {Break apart image};
-            \node (trouble) [process, below of=split] {Find and fix problems};
-            \node (slow) [decision, below of=trouble, yshift=-0.5cm] {PC reacts slowly?};
-            \node (simplify) [process, below of=slow, yshift=-0.7cm] {Simplify paths};
-            \node (troubleAgain) [process, below of=simplify] {Find and fix problems again};
-            \node (wantOutlines) [decision, right of=start, xshift=8cm] {Do you want to add any outlines?};
-            \node (outlines) [process, below of=wantOutlines, yshift=-1cm] {Create outlines};
-            \node (wantLettering) [decision, below of=outlines, yshift=-0.5cm] {Do you want to add writing?};
-            \node (lettering) [process, below of=wantLettering, yshift=-0.5cm] {Add writing};
-            \node (check) [process, below of=lettering] {Check what stitched image will look like};
-            \node (types) [process, below of=check] {Assign stitch types};
-            \node (order) [process, below of=types] {Reorganize stitch order};
-            \node (lastCheck) [process, below of=order] {One last check};
-            \node (export) [io, below of=lastCheck] {Export embroidery file};
-            \node (embroider) [startstop, below of=export] {Embroider your design};
-            
-            
-            \draw [arrow] (start) -- (import);
+            \begin{tikzpicture}[node distance=1.7cm]
+                \node (start) [startstop] {Start Inkscape with Inkstitch already installed.};
+                \node (import) [io, below of=start] {import image};
+                \node (isVector) [decision, below of=import, yshift=-0.5cm] {Is vector image?};
+                \node (resize) [process, below of=isVector, yshift=-0.5cm] {Resize to desired embroidery size};
+                \node (conv) [process, below of=resize] {Convert raster (pixel) image to vector format};
+                \node (backgr) [decision, below of=conv, yshift=-1cm] {Do you want to stitch out the background?};
+                \node (delBackgr) [process, below of=backgr, yshift=-0.7cm] {Delete background};
+                \node (split) [process, below of=delBackgr] {Break apart image};
+                \node (trouble) [process, below of=split] {Find and fix problems};
+                \node (slow) [decision, below of=trouble, yshift=-0.5cm] {PC reacts slowly?};
+                \node (simplify) [process, below of=slow, yshift=-0.7cm] {Simplify paths};
+                \node (troubleAgain) [process, below of=simplify] {Find and fix problems again};
+                \node (wantOutlines) [decision, right of=start, xshift=8cm] {Do you want to add any outlines?};
+                \node (outlines) [process, below of=wantOutlines, yshift=-1cm] {Create outlines};
+                \node (wantLettering) [decision, below of=outlines, yshift=-0.5cm] {Do you want to add writing?};
+                \node (lettering) [process, below of=wantLettering, yshift=-0.5cm] {Add writing};
+                \node (check) [process, below of=lettering] {Check what stitched image will look like};
+                \node (types) [process, below of=check] {Assign stitch types};
+                \node (order) [process, below of=types] {Reorganize stitch order};
+                \node (lastCheck) [process, below of=order] {One last check};
+                \node (export) [io, below of=lastCheck] {Export embroidery file};
+                \node (embroider) [startstop, below of=export] {Embroider your design};
+                
+                
+                \draw [arrow] (start) -- (import);
 
-            \draw [arrow] (import) -- (isVector);
+                \draw [arrow] (import) -- (isVector);
 
-            \draw [arrow] (isVector) -- node[pos=0.4, right] {no} (resize);
-            \draw [arrow, rounded corners=4pt] (isVector) -- ++ (-3.5,0) node[pos=0.3, above] {yes} |- (backgr);
+                \draw [arrow] (isVector) -- node[pos=0.4, right] {no} (resize);
+                \draw [arrow, rounded corners=4pt] (isVector) -- ++ (-3.5,0) node[pos=0.3, above] {yes} |- (backgr);
 
-            \draw [arrow] (resize) -- (conv);
+                \draw [arrow] (resize) -- (conv);
 
-            \draw [arrow] (conv) -- (backgr);
+                \draw [arrow] (conv) -- (backgr);
 
-            \draw [arrow] (backgr) -- node[pos=0.4, right] {no} (delBackgr);
-            \draw [arrow, rounded corners=4pt] (backgr) -- ++ (3.5,0) node[pos=0.3, above] {yes} |- (split);
+                \draw [arrow] (backgr) -- node[pos=0.4, right] {no} (delBackgr);
+                \draw [arrow, rounded corners=4pt] (backgr) -- ++ (3.5,0) node[pos=0.3, above] {yes} |- (split);
 
-            \draw [arrow] (delBackgr) -- (split);
-            
-            \draw [arrow] (split) -- (trouble);
+                \draw [arrow] (delBackgr) -- (split);
+                
+                \draw [arrow] (split) -- (trouble);
 
-            \draw [arrow] (trouble) -- (slow);
+                \draw [arrow] (trouble) -- (slow);
 
-            \draw [arrow] (slow) -- node[pos=0.5, right] {yes} (simplify);
-            \draw [arrow, rounded corners=4pt](slow) -| ++ (5,0) node[pos=0.05, above] {no} |-(wantOutlines);
-            
-            \draw [arrow] (simplify) -- (troubleAgain);
+                \draw [arrow] (slow) -- node[pos=0.5, right] {yes} (simplify);
+                \draw [arrow, rounded corners=4pt](slow) -| ++ (5,0) node[pos=0.05, above] {no} |- (wantOutlines);
+                
+                \draw [arrow] (simplify) -- (troubleAgain);
 
-            \draw [arrow, rounded corners=4pt] (troubleAgain) -| ++ (5,0) |- (wantOutlines);
+                \draw [arrow, rounded corners=4pt] (troubleAgain) -| ++ (5,0) |- (wantOutlines);
 
-            \draw [arrow] (wantOutlines) -- node[anchor=west] {yes} (outlines);
-            \draw [arrow, rounded corners=4pt] (wantOutlines) -- ++ (3.5,0) node[pos=0.3, above] {no} |- (wantLettering);
+                \draw [arrow] (wantOutlines) -- node[anchor=west] {yes} (outlines);
+                \draw [arrow, rounded corners=4pt] (wantOutlines) -- ++ (3.5,0) node[pos=0.3, above] {no} |- (wantLettering);
 
-            \draw [arrow] (outlines) -- (wantLettering);
-            
-            \draw [arrow] (wantLettering) -- node[anchor=west] {yes} (lettering);
-            \draw [arrow, rounded corners=4pt] (wantLettering) -- ++ (-3,0) node[pos=0.3, above] {no} |- (check);
+                \draw [arrow] (outlines) -- (wantLettering);
+                
+                \draw [arrow] (wantLettering) -- node[anchor=west] {yes} (lettering);
+                \draw [arrow, rounded corners=4pt] (wantLettering) -- ++ (-3,0) node[pos=0.3, above] {no} |- (check);
 
-            \draw[arrow] (lettering) -- (check);
+                \draw [arrow] (lettering) -- (check);
 
-            \draw [arrow] (check) -- (types);
+                \draw [arrow] (check) -- (types);
 
-            \draw [arrow] (types) -- (order);
+                \draw [arrow] (types) -- (order);
 
-            \draw [arrow] (order) -- (lastCheck);
+                \draw [arrow] (order) -- (lastCheck);
 
-            \draw [arrow] (lastCheck) -- (export);
+                \draw [arrow] (lastCheck) -- (export);
 
-            \draw [arrow] (export) -- (embroider);
-
+                \draw [arrow] (export) -- (embroider);
             \end{tikzpicture}
 
         \pagebreak
 
         \subsection{Import Image}
+            
+            To import an image into Inkscape you multiple options. Three of these are:
+
+            \begin{itemize}
+                \item Directly open the image with Inkscape.
+                \item Drag the image file from an file explorer window into the Inkscape window.
+                \item In Inkscape click on 'File' $\rightarrow$ 'Import' and select the file you would like to import.
+            \end{itemize}
+
+            When importing an image, Inkscape might display an import dialogue which lets you select certain file format specific options.
+            Usually it is sufficient to leave these options at their default values and just confirm the dialogue.
         
         \subsection{File Types}
+
+            There are two fundamentally different classes of file formats:
+            \begin{itemize}
+                \item \textbf{vector} formats like \textbf{SVG, EPS, AI, PDF} (can be used as a container for vector formats), etc. 
+                \item \textbf{raster} (pixel) formats like \textbf{JP(E)G, PNG, WEBP, GIF, TIFF, BMP}, etc.
+            \end{itemize}     
+
             \subsubsection{Vector Formats}
+
+                Vector images are comprised of shapes an strokes.
+                This means that they usually can be scaled to pretty much every size without loosing visual quality.
+                
+                That also means that editing them may be a lot easier or a bit harder than editing images that are made out of pixels.
+                In any case, if you have never worked with vector images, it may take a little bit of time to get used to it.
+
             \subsubsection{Raster Formats}
+
+                Raster image formats, often better known as pixel formats, build up the image from square pixels. It is therefore impossible to edit shapes, lines, text or any other type of the images content directly.
+                Manipulating such an image after the fact is there very often much more labour intensive. On the other hand, most images found on the internet and all images exported by digital cameras are raster images.
+
+                Ink/Stitch is only able to handle vector images. Therefore, in chapter \ref{vectorConversion} \nameref{vectorConversion} we will learn how to  convert a raster image to a vector format.
+                This has the added benefit of being able to manipulate the image in many ways that would be impossible or very difficult with a raster image.
         
         \subsection{Resizing}
+
+        It is often a good idea to scale your image to roughly the size your finished embroidery pattern should be. To resize an image after importing it into Inkscape, follow these steps:  
         
-        \subsection{Conversion to Vector Image}
+        \subsection{Conversion to Vector Image} \label{vectorConversion}
         Trace Bitmap    
 
         \subsection{Delete Background}
@@ -149,7 +225,7 @@ draw=black, fill=green!30]
             \subsubsection{Clean up Document}
             \subsubsection{Small Infill}
             \subsubsection{Border Crosses Itself}
-            \subsubsection{Rung Intersects Rail more than Once (Satin Stitch)}
+            \subsubsection{Rung mIntersects Rail more than Once (Satin Stitch)}
 
         \subsection{Simplify Paths}
         
